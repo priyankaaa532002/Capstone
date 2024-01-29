@@ -7,7 +7,12 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import MyContext from '../MyContext';
 import { useContext } from 'react';
+import { useEffect } from 'react';
 
+import { CONTRACT_ADDRESS_PATIENT, ABI_PATIENT } from '../Constants';
+
+import {ethers} from 'ethers';
+import Web3 from 'web3';
 
 const myStyle = {
     textAlign: "left",
@@ -33,7 +38,7 @@ export default class Login extends Component {
             linkText2: prevState.showForm1 ? 'Login' : 'Sign Up'
         }));
     };
-    
+
     render() {
         return (
             <div class="ms-5 me-5 mt-5" style={myStyle}>
@@ -45,86 +50,211 @@ export default class Login extends Component {
 }
 
 const Form1 = () => {
+    
+    const [account, setAccount] = useState(null);
+
+    useEffect(() => {
+        const connectToMetaMask = async () => {
+            if (window.ethereum) {
+                try {
+                    // Request account access if needed
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    // Accounts now exposed
+                    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                    setAccount(accounts[0]);
+                } catch (error) {
+                    console.error('User denied accont access');
+                }
+            } else {
+                console.error('MetaMask not detected');
+            }
+        };
+        connectToMetaMask();
+    }, []);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-  
+
     const { updateIsAdmin } = useContext(MyContext);
 
     const handleAdminLogin = () => {
+
+        if (email === 'admin@blockchain.com' && password === 'Blockchain@123') {
+            alert('Login As Admin Successful!');
+            updateIsAdmin(true)
+        } else {
+            alert('Incorrect email or password. Please try again.');
+        }
     
-    if (email === 'admin@blockchain.com' && password === 'Blockchain@123') {
-      alert('Login As Admin Successful!');
-      updateIsAdmin(true)
-    } else {
-      alert('Incorrect email or password. Please try again.');
-    }
-  };
+    };
+    const handlePatientLogin = async () => {
+        try {
+            updateIsAdmin(false);
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0x13881' }] //  80001 chain ID is '0x13881'
+            });
+    
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(CONTRACT_ADDRESS_PATIENT, ABI_PATIENT, signer);
+    
+            const reg2 = await contract.getAllPersons();
+            console.log(reg2);
+        } catch (error) {
+            console.error('Error in handlePatientLogin:', error);
+            // Handle error: Display a message to the user or perform other actions
+        }
+    };
+    
 
-    const handlePatientLogin = () =>{
-        updateIsAdmin(false)
-    }
-
-  return (
-    <div style={myStyle}>
-      <h3>Login</h3>
-      <form>
-        <div className="mb-6">
-          <label htmlFor="exampleInputEmail1" className="form-label">
-            Email address
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+    return (
+        <div style={myStyle}>
+            <h3>Login</h3>
+            <form>
+                <div className="mb-6">
+                    <label htmlFor="exampleInputEmail1" className="form-label">
+                        Email address
+                    </label>
+                    <input
+                        type="email"
+                        className="form-control"
+                        id="exampleInputEmail1"
+                        aria-describedby="emailHelp"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+                <div className="mb-6">
+                    <label htmlFor="exampleInputPassword1" className="form-label">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        id="exampleInputPassword1"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+                <br />
+                <button type="submit" className="btn btn-primary me-3" onClick={handlePatientLogin}>
+                    Login As Patient
+                </button>
+                <button type="button" className="btn btn-primary" onClick={handleAdminLogin}>
+                    Login As Admin
+                </button>
+                <br />
+                <br />
+            </form>
         </div>
-        <div className="mb-6">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="exampleInputPassword1"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <br />
-        <button type="submit" className="btn btn-primary me-3" onClick={handlePatientLogin}>
-          Login As Patient
-        </button>
-        <button type="button" className="btn btn-primary" onClick={handleAdminLogin}>
-          Login As Admin
-        </button>
-        <br />
-        <br />
-      </form>
-    </div>
-  );
+    );
 };
 
 const Form2 = () => {
+
+    const [account, setAccount] = useState(null);
+
+    useEffect(() => {
+        const connectToMetaMask = async () => {
+            if (window.ethereum) {
+                try {
+                    // Request account access if needed
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    // Accounts now exposed
+                    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                    setAccount(accounts[0]);
+                } catch (error) {
+                    console.error('User denied accont access');
+                }
+            } else {
+                console.error('MetaMask not detected');
+            }
+        };
+        connectToMetaMask();
+    }, []);
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        dob: '',
+        gender: '',
+        accountNumber: '',
+        address: '',
+        password: ''
+    });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+    
+
+    async function registerPatientData(){
+        await window.ethereum.request({
+			method: 'wallet_switchEthereumChain',
+			params: [{ chainId: Web3.utils.toHex(80001) }]
+			});
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+	    const sig = provider.getSigner();
+        const contract = new ethers.Contract(CONTRACT_ADDRESS_PATIENT, ABI_PATIENT, sig);
+		const reg1 = await contract.addPerson(formData.name, formData.password, formData.email, formData.address, Date.parse(formData.dob), formData.gender);
+        console.log(reg1)
+
+        const reg2 = await contract.getAllPersons();
+        console.log(reg2)
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Form data:', formData);
+        // Perform registration logic here using formData
+        // alert(account)
+        console.log(account)
+        registerPatientData()
+
+        // Reset form after submission if needed
+        setFormData({
+            name: '',
+            email: '',
+            dob: '',
+            gender: '',
+            accountNumber: '',
+            address: '',
+            password: ''
+        });
+    };
+
     return (
         <div>
             <h3>Register</h3>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="mb-3 d-flex">
                     <div className="col-6 me-3">
                         <label htmlFor="name" className="form-label">
                             Name
                         </label>
-                        <input type="text" className="form-control" id="name" />
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="name"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleInputChange}
+                        />
                     </div>
 
                     <div className="col-6">
                         <label htmlFor="email" className="form-label">
                             Email
                         </label>
-                        <input type="email" className="form-control" id="email" />
+                        <input
+                            type="email"
+                            className="form-control"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                        />
                     </div>
                 </div>
 
@@ -133,20 +263,43 @@ const Form2 = () => {
                         <label htmlFor="dob" className="form-label">
                             Date of Birth
                         </label>
-                        <input type="date" className="form-control" id="dob" />
+                        <input
+                            type="date"
+                            className="form-control"
+                            id="dob"
+                            name="dob"
+                            value={formData.dob}
+                            onChange={handleInputChange}
+                        />
                     </div>
 
                     <div>
                         <label className="form-label">Gender</label>
                         <div>
                             <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="gender" id="male" value="male" />
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="gender"
+                                    id="male"
+                                    value="male"
+                                    checked={formData.gender === 'male'}
+                                    onChange={handleInputChange}
+                                />
                                 <label className="form-check-label" htmlFor="male">
                                     Male
                                 </label>
                             </div>
                             <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="gender" id="female" value="female" />
+                                <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="gender"
+                                    id="female"
+                                    value="female"
+                                    checked={formData.gender === 'female'}
+                                    onChange={handleInputChange}
+                                />
                                 <label className="form-check-label" htmlFor="female">
                                     Female
                                 </label>
@@ -159,28 +312,64 @@ const Form2 = () => {
                     <label htmlFor="accountNumber" className="form-label">
                         Account Number
                     </label>
-                    <input type="text" className="form-control" id="accountNumber" />
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="accountNumber"
+                        name="accountNumber"
+                        value={formData.accountNumber}
+                        onChange={handleInputChange}
+                    />
                 </div>
-
+{/* 
                 <div className="mb-3">
                     <label htmlFor="address" className="form-label">
                         Address
                     </label>
-                    <textarea className="form-control" id="address" rows="2"></textarea>
-                </div>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="address"
+                        name="address"
+                        rows="2"
+                        value={formData.address}
+                        onChange={handleInputChange}
+                    ></input>
+                </div> */}
+
+                <div className="col-6 me-3">
+                        <label htmlFor="address" className="form-label">
+                            Address
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="address"
+                            name="address"
+                            value={formData.address}
+                            onChange={handleInputChange}
+                        />
+                    </div>
 
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">
                         Password
                     </label>
-                    <input type="password" className="form-control" id="password" />
+                    <input
+                        type="password"
+                        className="form-control"
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleInputChange}
+                    />
                 </div>
 
                 <button type="submit" className="btn btn-primary">
                     Register
                 </button>
             </form>
-            <br/>
         </div>
     );
 };
+
