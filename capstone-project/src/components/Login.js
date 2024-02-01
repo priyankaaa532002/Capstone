@@ -13,6 +13,9 @@ import { CONTRACT_ADDRESS_PATIENT, ABI_PATIENT } from '../Constants';
 
 import {ethers} from 'ethers';
 import Web3 from 'web3';
+import { Routes } from 'react-router-dom';
+
+import { useNavigate } from 'react-router-dom';
 
 const myStyle = {
     textAlign: "left",
@@ -52,6 +55,7 @@ export default class Login extends Component {
 const Form1 = () => {
     
     const [account, setAccount] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const connectToMetaMask = async () => {
@@ -96,14 +100,18 @@ const Form1 = () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
 	    const sig = provider.getSigner();
         const contract = new ethers.Contract(CONTRACT_ADDRESS_PATIENT, ABI_PATIENT, sig);
-		// const reg1 = await contract.addPerson(formData.name, formData.password, formData.email, formData.address, Date.parse(formData.dob), formData.gender);
-        // console.log(reg1)
-
         const reg2 = await contract.getAllPersons();
         console.log(reg2)
-    };
-    
+        const user = reg2.find(persons => persons[2] === email && persons[1] === password);
 
+        if (user) {
+            console.log('Login successful!');
+            navigate('/home')
+        } else {
+            console.log('Incorrect email or password. Please try again.');
+            alert('Incorrect email or password. Please try again.');
+        }
+    };
     return (
         <div style={myStyle}>
             <h3>Login</h3>
