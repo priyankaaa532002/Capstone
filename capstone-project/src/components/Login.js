@@ -41,9 +41,9 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div class="ms-5 me-5 mt-5" style={myStyle}>
+            <div className="ms-5 me-5 mt-5" style={myStyle}>
                 {this.state.showForm1 ? <Form1 /> : <Form2 />}
-                <label class="form-label">{this.state.linkText}</label> <a href="#" onClick={this.toggleForms}>{this.state.linkText2}</a>
+                <label className="form-label">{this.state.linkText}</label> <a href="#" onClick={this.toggleForms}>{this.state.linkText2}</a>
             </div>
         )
     }
@@ -87,24 +87,20 @@ const Form1 = () => {
         }
     
     };
-    const handlePatientLogin = async () => {
-        try {
-            updateIsAdmin(false);
-            await window.ethereum.request({
-                method: 'wallet_switchEthereumChain',
-                params: [{ chainId: '0x13881' }] //  80001 chain ID is '0x13881'
-            });
-    
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
-            const contract = new ethers.Contract(CONTRACT_ADDRESS_PATIENT, ABI_PATIENT, signer);
-    
-            const reg2 = await contract.getAllPersons();
-            console.log(reg2);
-        } catch (error) {
-            console.error('Error in handlePatientLogin:', error);
-            // Handle error: Display a message to the user or perform other actions
-        }
+    const handlePatientLogin = async (e) => {
+        e.preventDefault();
+        await window.ethereum.request({
+			method: 'wallet_switchEthereumChain',
+			params: [{ chainId: Web3.utils.toHex(80001) }]
+			});
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+	    const sig = provider.getSigner();
+        const contract = new ethers.Contract(CONTRACT_ADDRESS_PATIENT, ABI_PATIENT, sig);
+		// const reg1 = await contract.addPerson(formData.name, formData.password, formData.email, formData.address, Date.parse(formData.dob), formData.gender);
+        // console.log(reg1)
+
+        const reg2 = await contract.getAllPersons();
+        console.log(reg2)
     };
     
 
@@ -321,21 +317,6 @@ const Form2 = () => {
                         onChange={handleInputChange}
                     />
                 </div>
-{/* 
-                <div className="mb-3">
-                    <label htmlFor="address" className="form-label">
-                        Address
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="address"
-                        name="address"
-                        rows="2"
-                        value={formData.address}
-                        onChange={handleInputChange}
-                    ></input>
-                </div> */}
 
                 <div className="col-6 me-3">
                         <label htmlFor="address" className="form-label">
