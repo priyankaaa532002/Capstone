@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 
 function App() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
 
   const updateIsAdmin = (newValue) => {
     setIsAdmin(newValue);

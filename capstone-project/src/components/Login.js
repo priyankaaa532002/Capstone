@@ -204,7 +204,7 @@ const Form2 = () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
 	    const sig = provider.getSigner();
         const contract = new ethers.Contract(CONTRACT_ADDRESS_PATIENT, ABI_PATIENT, sig);
-		const reg1 = await contract.addPerson(formData.name, formData.password, formData.email, formData.address, Date.parse(formData.dob), formData.gender);
+		const reg1 = await contract.addPerson(formData.name, formData.password, formData.email, formData.address, Date.parse(formData.dob), formData.gender==="true"? true : false);
         console.log(reg1)
 
         const reg2 = await contract.getAllPersons();
@@ -288,8 +288,8 @@ const Form2 = () => {
                                     type="radio"
                                     name="gender"
                                     id="male"
-                                    value="male"
-                                    checked={formData.gender === 'male'}
+                                    value="true"
+                                    checked={formData.gender === "true"}
                                     onChange={handleInputChange}
                                 />
                                 <label className="form-check-label" htmlFor="male">
@@ -302,8 +302,8 @@ const Form2 = () => {
                                     type="radio"
                                     name="gender"
                                     id="female"
-                                    value="female"
-                                    checked={formData.gender === 'female'}
+                                    value="false"
+                                    checked={formData.gender === "false"}
                                     onChange={handleInputChange}
                                 />
                                 <label className="form-check-label" htmlFor="female">
