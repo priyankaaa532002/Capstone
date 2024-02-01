@@ -28,7 +28,7 @@ export default class NavbarComp extends Component {
         <div>
           <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
             <Container fluid>
-              <Navbar.Brand href="#">Navbar</Navbar.Brand>
+              <Navbar.Brand href="#">Capstone</Navbar.Brand>
               <Navbar.Toggle aria-controls="navbarScroll" />
               <Navbar.Collapse id="navbarScroll">
                 <Nav
@@ -37,7 +37,7 @@ export default class NavbarComp extends Component {
                   navbarScroll
                 >
                   <Nav.Link as={Link} to={"/home"}>Home</Nav.Link>
-                  <Nav.Link as={Link} to={"/patients"}>Patients</Nav.Link>
+                  {isAdmin&&<Nav.Link as={Link} to={"/patients"}>Patients</Nav.Link>}
                   {isAdmin&&<Nav.Link as={Link} to={"/doctors"}>Doctors</Nav.Link>}
                   <Nav.Link as={Link} to={"/appointments"}>Appointments</Nav.Link>
                   <Nav.Link as={Link} to={"/donations"}>Donations</Nav.Link>
@@ -51,7 +51,7 @@ export default class NavbarComp extends Component {
         <div>
           <Routes>
             <Route path="/home" element={<Home />}></Route>
-            <Route path="/patients" element={<Patients />}></Route>
+            {isAdmin&&<Route path="/patients" element={<Patients />}></Route>}
             {isAdmin&&<Route path="/doctors" element={<Doctors />}></Route>}
             <Route path="/appointments" element={<Appointments />}></Route>
             <Route path="/donations" element={<Donations />}></Route>

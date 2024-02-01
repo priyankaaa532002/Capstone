@@ -86,6 +86,7 @@ const Form1 = () => {
         if (email === 'admin@blockchain.com' && password === 'Blockchain@123') {
             alert('Login As Admin Successful!');
             updateIsAdmin(true)
+            navigate('/home')
         } else {
             alert('Incorrect email or password. Please try again.');
         }
@@ -106,6 +107,7 @@ const Form1 = () => {
 
         if (user) {
             console.log('Login successful!');
+            updateIsAdmin(false);
             navigate('/home')
         } else {
             console.log('Incorrect email or password. Please try again.');
