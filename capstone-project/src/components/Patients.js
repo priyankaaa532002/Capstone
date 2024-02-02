@@ -3,22 +3,19 @@ import { CONTRACT_ADDRESS_PATIENT, ABI_PATIENT } from '../Constants';
 import { ethers } from 'ethers';
 import Web3 from 'web3';
 
-const myStyle = {
-    textAlign: "left",
-    margin: "5px"
-};
-
 const Patients = () => {
     const [persons, setPersons] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+
     function toDOB(timestamp) {
         const dob = new Date(timestamp);
         const day = dob.getDate().toString().padStart(2, '0');
         const month = (dob.getMonth() + 1).toString().padStart(2, '0');
         const year = dob.getFullYear();
         const formattedDOB = `${day}/${month}/${year}`;
-        console.log(formattedDOB); // Output: 06/02/2002
         return formattedDOB;
     }
+
     useEffect(() => {
         const fetchPatients = async () => {
             try {
@@ -31,7 +28,6 @@ const Patients = () => {
                 const contract = new ethers.Contract(CONTRACT_ADDRESS_PATIENT, ABI_PATIENT, signer);
                 const persons = await contract.getAllPersons();
                 setPersons(persons);
-                console.log(persons)
             } catch (error) {
                 console.error('Error fetching patients:', error);
             }
@@ -39,9 +35,22 @@ const Patients = () => {
         fetchPatients();
     }, []);
 
+    const filteredPersons = persons.filter(person =>
+        person.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <div className="ms-5 me-5" style={{ textAlign: 'left' }}>
             <h2>Patients</h2>
+            <div className="mb-3">
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search by name..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+            </div>
             <table className="table table-striped">
                 <thead>
                     <tr>
@@ -54,7 +63,7 @@ const Patients = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {persons.map((person, index) => (
+                    {filteredPersons.map((person, index) => (
                         <tr key={index}>
                             <td>{person.name}</td>
                             <td>{person.email}</td>
