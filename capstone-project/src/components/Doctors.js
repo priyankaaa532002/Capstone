@@ -1,10 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext,useEffect, useState } from 'react';
 import AdminContext from '../MyContext'; 
 
+import { CONTRACT_ADDRESS_DOCTOR, ABI_DOCTOR } from '../Constants';
+import {ethers} from 'ethers';
+import Web3 from 'web3';
+
+const myStyle = {
+    textAlign: "left",
+    margin: "5px"
+};
+
 const DoctorManagement = () => {
+    const [doctors, setDoctors] = useState([]);
     const { isAdmin } = useContext(AdminContext);
     const [isFormOpen, setIsFormOpen] = useState(false);
-    const [formData, setFormData] = useState({ name: '', field: '', fees: '' });
+    const [formData, setFormData] = useState({ name: '', specialty: '', charge: '', account: ''});
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -19,21 +29,87 @@ const DoctorManagement = () => {
         }
     };
 
+    async function registerDoctorData(){
+        await window.ethereum.request({
+			method: 'wallet_switchEthereumChain',
+			params: [{ chainId: Web3.utils.toHex(80001) }]
+			});
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+	    const sig = provider.getSigner();
+        const contract = new ethers.Contract(CONTRACT_ADDRESS_DOCTOR, ABI_DOCTOR, sig);
+		const reg1 = await contract.addDoctor(formData.name, formData.specialty, parseInt(formData.charge), formData.account);
+        console.log(reg1)
+        const reg2 = await contract.getAllDoctors();
+        console.log(reg2)
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form submitted:", formData);
+        console.log('Form data:', formData);
+        registerDoctorData()
+        setFormData({
+            name: '',
+            specialty: '',
+            charge: '',
+            account: ''
+        });
         setIsFormOpen(false); 
     };
 
+    useEffect(() => {
+        const fetchDoctors = async () => {
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: Web3.utils.toHex(80001) }]
+                });
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                const signer = provider.getSigner();
+                const contract = new ethers.Contract(CONTRACT_ADDRESS_DOCTOR, ABI_DOCTOR, signer);
+                const doctors = await contract.getAllDoctors();
+                setDoctors(doctors);
+                console.log(doctors)
+            } catch (error) {
+                console.error('Error fetching Doctors:', error);
+            }
+        };
+        fetchDoctors();
+    }, []);
+
     return (
         <div>
+            {!isFormOpen &&(
+                <div style={{ margin: '20px' }}>
+                <h2 style={{ marginBottom: '20px' }}>Doctors Information</h2>
+                <table className="table table-striped" style={{ borderCollapse: 'collapse', width: '100%', }}>
+                    <thead>
+                        <tr>
+                            <th style={{ padding: '10px' }}>NAME</th>
+                            <th style={{ padding: '10px' }}>SPECIALITY</th>
+                            <th style={{ padding: '10px' }}>CONSULTATION CHARGE</th>
+                            <th style={{ padding: '10px' }}>ACCOUNT ADDRESS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {doctors.map((doctor, index) => (
+                            <tr>
+                                <td style={{ padding: '10px' }}>{doctor[0]}</td>
+                                <td style={{ padding: '10px' }}>{doctor[1]}</td>
+                                <td style={{ padding: '10px' }}>{doctor[2].toNumber()}</td>
+                                <td style={{ padding: '10px' }}>{doctor[3]}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            )}
             <div style={{ position: 'fixed', bottom: '20px', right: '20px' }}>
                 <button type="button" className="btn btn-primary" onClick={handleAddDoctorClick}>
                     Add New Doctor
                 </button>
             </div>
             {isFormOpen && isAdmin && (
-                <div className="modal-container d-flex justify-content-center align-items-center">
+                <div className="modal-container d-flex" style={myStyle}>
                     <div className="modal-background" onClick={() => setIsFormOpen(false)}></div>
                     <div className="modal-dialog">
                         <div className="modal-content" style={{ border: '1px solid #ccc', width: '400px', margin: '50px auto', padding: '20px' }}>
@@ -48,12 +124,16 @@ const DoctorManagement = () => {
                                         <input type="text" className="form-control" id="name" name="name" value={formData.name} onChange={handleInputChange} required />
                                     </div>
                                     <div className="mb-3">
-                                        <label htmlFor="field" className="form-label">Field</label>
-                                        <input type="text" className="form-control" id="field" name="field" value={formData.field} onChange={handleInputChange} required />
+                                        <label htmlFor="specialty" className="form-label">Specialty</label>
+                                        <input type="text" className="form-control" id="specialty" name="specialty" value={formData.specialty} onChange={handleInputChange} required />
                                     </div>
                                     <div className="mb-3">
-                                        <label htmlFor="fees" className="form-label">Fees</label>
-                                        <input type="text" className="form-control" id="fees" name="fees" value={formData.fees} onChange={handleInputChange} required />
+                                        <label htmlFor="charge" className="form-label">Consultation Charge</label>
+                                        <input type="text" className="form-control" id="charge" name="charge" value={formData.charge} onChange={handleInputChange} required />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="account" className="form-label">Account Address</label>
+                                        <input type="text" className="form-control" id="account" name="account" value={formData.account} onChange={handleInputChange} required />
                                     </div>
                                     <button type="submit" className="btn btn-primary">Submit</button>
                                 </form>

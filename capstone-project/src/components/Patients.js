@@ -40,24 +40,32 @@ const Patients = () => {
     }, []);
 
     return (
-        <div className="ms-5 me-5" style={myStyle}>
+        <div className="ms-5 me-5" style={{ textAlign: 'left' }}>
             <h2>Patients</h2>
-            <div className="row row-cols-1 row-cols-md-3">
-                {persons.map((person, index) => (
-                    <div className="col-md-4" key={index}>
-                        <div className="card mb-3">
-                            <div className="card-body">
-                                <h5 className="card-title">{person.name}</h5>
-                                <p className="card-text">Email: {person.email}</p>
-                                <p className="card-text">Address: {person.address1}</p>
-                                <p className="card-text">Public Address: {person.publicAddress}</p>
-                                <p className="card-text">Date of Birth: {toDOB(person.dateOfBirth.toNumber())}</p>
-                                <p className="card-text">Gender: {person.isMale ? 'Male' : 'Female'}</p>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
+            <table className="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Public Address</th>
+                        <th>Date of Birth</th>
+                        <th>Gender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {persons.map((person, index) => (
+                        <tr key={index}>
+                            <td>{person.name}</td>
+                            <td>{person.email}</td>
+                            <td>{person.address1}</td>
+                            <td>{person.publicAddress}</td>
+                            <td>{toDOB(person.dateOfBirth.toNumber())}</td>
+                            <td>{person.isMale ? 'Male' : 'Female'}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 };
