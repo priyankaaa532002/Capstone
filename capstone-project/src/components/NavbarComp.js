@@ -38,7 +38,7 @@ export default class NavbarComp extends Component {
                 >
                   <Nav.Link as={Link} to={"/home"}>Home</Nav.Link>
                   {isAdmin&&<Nav.Link as={Link} to={"/patients"}>Patients</Nav.Link>}
-                  {isAdmin&&<Nav.Link as={Link} to={"/doctors"}>Doctors</Nav.Link>}
+                  <Nav.Link as={Link} to={"/doctors"}>Doctors</Nav.Link>
                   <Nav.Link as={Link} to={"/appointments"}>Appointments</Nav.Link>
                   <Nav.Link as={Link} to={"/donations"}>Donations</Nav.Link>
                   <Nav.Link as={Link} to={"/transaction"}>Transaction</Nav.Link>
@@ -52,7 +52,7 @@ export default class NavbarComp extends Component {
           <Routes>
             <Route path="/home" element={<Home />}></Route>
             {isAdmin&&<Route path="/patients" element={<Patients />}></Route>}
-            {isAdmin&&<Route path="/doctors" element={<Doctors />}></Route>}
+            <Route path="/doctors" element={<Doctors />}></Route>
             <Route path="/appointments" element={<Appointments />}></Route>
             <Route path="/donations" element={<Donations />}></Route>
             <Route path="/transaction" element={<Transaction />}></Route>
