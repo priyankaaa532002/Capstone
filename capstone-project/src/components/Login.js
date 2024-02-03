@@ -79,7 +79,8 @@ const Form1 = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { updateIsAdmin } = useContext(MyContext);
+    const { updateIsAdmin,updatePatientData } = useContext(MyContext);
+
 
     const handleAdminLogin = () => {
 
@@ -108,6 +109,7 @@ const Form1 = () => {
         if (user) {
             console.log('Login successful!');
             updateIsAdmin(false);
+            updatePatientData(user);
             navigate('/home')
         } else {
             console.log('Incorrect email or password. Please try again.');
@@ -160,6 +162,8 @@ const Form1 = () => {
 const Form2 = () => {
 
     const [account, setAccount] = useState(null);
+    const { updateIsAdmin,updatePatientData } = useContext(MyContext);
+
 
     useEffect(() => {
         const connectToMetaMask = async () => {
@@ -217,7 +221,7 @@ const Form2 = () => {
         // alert(account)
         console.log(account)
         registerPatientData()
-
+        updatePatientData(formData);
         // Reset form after submission if needed
         setFormData({
             name: '',

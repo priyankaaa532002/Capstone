@@ -9,12 +9,15 @@ import { useState } from 'react';
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
-
+  const [patientData,setPatientData] = useState({});
   const updateIsAdmin = (newValue) => {
     setIsAdmin(newValue);
   };
+  const updatePatientData = (newValue) => {
+    setPatientData(newValue);
+  };
   return (
-    <MyContext.Provider value={{ isAdmin, updateIsAdmin }}>
+    <MyContext.Provider value={{ isAdmin, updateIsAdmin ,patientData,updatePatientData}}>
       <div className="App">
         <NavbarComp />
       </div>

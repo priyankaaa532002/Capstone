@@ -10,7 +10,7 @@ const myStyle = {
 };
 
 const DoctorManagement = () => {
-    const { isAdmin } = useContext(AdminContext);
+    const { isAdmin , patientData} = useContext(AdminContext);
     const [doctors, setDoctors] = useState([]);
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [formData, setFormData] = useState({ name: '', specialty: '', charge: '', account: ''});
@@ -28,6 +28,15 @@ const DoctorManagement = () => {
             alert("ONLY ADMINS HAVE ACCESS");
         }
     };
+
+    const handleAppointment = (doctor) => {
+        if(!isAdmin){
+            alert(patientData)
+            // alert(doctor)
+        }
+        
+        else alert("Only for patients")
+    }
 
     async function registerDoctorData() {
         try {
@@ -101,6 +110,7 @@ const DoctorManagement = () => {
                                 <th style={{ padding: '10px' }}>SPECIALITY</th>
                                 <th style={{ padding: '10px' }}>CONSULTATION CHARGE</th>
                                 <th style={{ padding: '10px' }}>ACCOUNT ADDRESS</th>
+                                <th style={{ padding: '10px' }}> </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,6 +120,7 @@ const DoctorManagement = () => {
                                     <td style={{ padding: '10px' }}>{doctor[1]}</td>
                                     <td style={{ padding: '10px' }}>{doctor[2].toNumber()}</td>
                                     <td style={{ padding: '10px' }}>{doctor[3]}</td>
+                                    <td><button type="button" className="btn btn-primary" onClick={handleAppointment.bind(this,doctor)}>Book Appointment</button></td>
                                 </tr>
                             ))}
                         </tbody>
