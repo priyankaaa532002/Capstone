@@ -116,6 +116,11 @@ const DoctorManagement = () => {
                     </table>
                 </div>
             )}
+            <div style={{ position: 'fixed', bottom: '20px', right: '20px' }}>
+                <button type="button" className="btn btn-primary" onClick={handleAddDoctorClick}>
+                    Add New Doctor
+                </button>
+            </div>
             {isFormOpen && isAdmin && (
                 <div className="modal-container d-flex" style={myStyle}>
                     <div className="modal-background" onClick={() => setIsFormOpen(false)}></div>
