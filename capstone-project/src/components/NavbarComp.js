@@ -26,9 +26,9 @@ export default class NavbarComp extends Component {
     return (
       <Router>
         <div>
-          <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
+          <Navbar bg="dark" data-bs-theme="dark" expand="lg">
             <Container fluid>
-              <Navbar.Brand href="#">Capstone</Navbar.Brand>
+              <Navbar.Brand href="/">Capstone</Navbar.Brand>
               <Navbar.Toggle aria-controls="navbarScroll" />
               <Navbar.Collapse id="navbarScroll">
                 <Nav
@@ -36,7 +36,7 @@ export default class NavbarComp extends Component {
                   style={{ maxHeight: '300px' }}
                   navbarScroll
                 >
-                  <Nav.Link as={Link} to={"/home"}>Home</Nav.Link>
+                  <Nav.Link as={Link} to={"/"}>Home</Nav.Link>
                   {isAdmin&&<Nav.Link as={Link} to={"/patients"}>Patients</Nav.Link>}
                   <Nav.Link as={Link} to={"/doctors"}>Doctors</Nav.Link>
                   <Nav.Link as={Link} to={"/appointments"}>Appointments</Nav.Link>
@@ -50,7 +50,7 @@ export default class NavbarComp extends Component {
         </div>
         <div>
           <Routes>
-            <Route path="/home" element={<Home />}></Route>
+            <Route path="/" element={<Home />}></Route>
             {isAdmin&&<Route path="/patients" element={<Patients />}></Route>}
             <Route path="/doctors" element={<Doctors />}></Route>
             <Route path="/appointments" element={<Appointments />}></Route>

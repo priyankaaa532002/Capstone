@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AdminContext from '../MyContext'; 
-import { CONTRACT_ADDRESS_DOCTOR, ABI_DOCTOR } from '../Constants';
+import { CONTRACT_ADDRESS_DOCTOR, ABI_DOCTOR, CONTRACT_ADDRESS_APPOINTMENT, ABI_APPOINTMENT } from '../Constants';
 import { ethers } from 'ethers';
 import Web3 from 'web3';
 import DatePicker from 'react-datepicker';
@@ -40,10 +40,49 @@ const DoctorManagement = () => {
         }
     };
 
+    async function registerAppointmentData() {
+        const provider1 = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider1.getSigner();
+        const addressToValue = selectedDoctor[3];
+        const ETHAmountValue = (selectedDoctor[2].toNumber() * 0.0000052).toString();
+        console.log(addressToValue + " " + ETHAmountValue);
+        
+        const weiAmountValue = ethers.utils.parseEther(ETHAmountValue)
+
+        const transactionRequest = {
+        to: addressToValue.toString(),
+        value: weiAmountValue.toString()
+        }
+
+        const receipt = await signer.sendTransaction(transactionRequest);
+        console.log(receipt);
+        
+        const dateObject = new Date(selectedDate);
+        const timestamp = Math.floor(dateObject.getTime() / 1000);
+        try {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: Web3.utils.toHex(80001) }]
+            });
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const sig = provider.getSigner();
+            const contract = new ethers.Contract(CONTRACT_ADDRESS_APPOINTMENT, ABI_APPOINTMENT, sig);
+
+            const reg1 = await contract.addAppointment(patientData.name, selectedDoctor[0], patientData.publicAddress, selectedDoctor[3], timestamp, selectedTime);
+            console.log(reg1)
+            const reg2 = await contract.getAllAppointment();
+            console.log(reg2)
+            // setDoctors(reg2);
+        } catch (error) {
+            console.error('Error registering Doctor:', error);
+        }
+    }//btao kya name rakhe thhe
+
     const handleConfirmAppointment = () => {
-        // Implement logic to confirm appointment
-        console.log("Appointment confirmed!");
+        // alert(selectedDoctor + " | " + timestamp + " | " + selectedTime + " | " + patientData);
         // Reset appointment form fields
+        console.log(patientData)
+        registerAppointmentData()
         setSelectedDoctor(null);
         setSelectedDate(null);
         setSelectedTime(null);
@@ -58,7 +97,7 @@ const DoctorManagement = () => {
                 params: [{ chainId: Web3.utils.toHex(80001) }]
             });
             const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const sig = provider.getSigner();
+            const sig = provider.getSigner();//yessy
             const contract = new ethers.Contract(CONTRACT_ADDRESS_DOCTOR, ABI_DOCTOR, sig);
             const reg1 = await contract.addDoctor(formData.name, formData.specialty, parseInt(formData.charge), formData.account);
             console.log(reg1)

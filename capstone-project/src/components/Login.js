@@ -30,7 +30,8 @@ export default class Login extends Component {
         this.state = {
             showForm1: true,
             linkText: "Don't have an account yet?",
-            linkText2: 'Sign Up'
+            linkText2: 'Sign Up',
+            acccount: ''
         };
     }
 
@@ -41,6 +42,26 @@ export default class Login extends Component {
             linkText2: prevState.showForm1 ? 'Login' : 'Sign Up'
         }));
     };
+
+    async componentDidMount() {
+        const connectToMetaMask = async () => {
+            if (window.ethereum) {
+                try {
+                    // Request account access if needed
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    // Accounts now exposed
+                    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                    this.setState({ account: accounts[0] });
+                    console.log(accounts[0])
+                } catch (error) {
+                    console.error('User denied account access');
+                }
+            } else {
+                console.error('MetaMask not detected');
+            }
+        };
+        connectToMetaMask();
+    }
 
     render() {
         return (
@@ -107,10 +128,11 @@ const Form1 = () => {
         const user = reg2.find(persons => persons[2] === email && persons[1] === password);
 
         if (user) {
+            console.log("User: " + user[4])
             console.log('Login successful!');
             updateIsAdmin(false);
-            updatePatientData(user);
-            navigate('/home')
+            updatePatientData(user, true, '', '');
+            navigate('/')
         } else {
             console.log('Incorrect email or password. Please try again.');
             alert('Incorrect email or password. Please try again.');
@@ -189,7 +211,7 @@ const Form2 = () => {
         email: '',
         dob: '',
         gender: '',
-        accountNumber: '',
+        publicAddress: account,
         address: '',
         password: ''
     });
@@ -221,14 +243,15 @@ const Form2 = () => {
         // alert(account)
         console.log(account)
         registerPatientData()
-        updatePatientData(formData);
+        updatePatientData(formData, false, formData.name, account);
+        console.log(formData)
         // Reset form after submission if needed
         setFormData({
             name: '',
             email: '',
             dob: '',
             gender: '',
-            accountNumber: '',
+            publicAddress: account,
             address: '',
             password: ''
         });
@@ -319,15 +342,16 @@ const Form2 = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="accountNumber" className="form-label">
+                    <label htmlFor="publicAddress" className="form-label">
                         Account Number
                     </label>
                     <input
                         type="text"
                         className="form-control"
-                        id="accountNumber"
-                        name="accountNumber"
-                        value={formData.accountNumber}
+                        id="publicAddress"
+                        name="publicAddress"
+                        value={account}
+                        disabled = "true"
                         onChange={handleInputChange}
                     />
                 </div>

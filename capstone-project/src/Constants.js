@@ -236,3 +236,143 @@ export const ABI_DOCTOR = [
 	}
 ]
 
+export const CONTRACT_ADDRESS_APPOINTMENT = "0x7c050bb8f8fdde6f8701edcf7432922715df7d87"
+export const ABI_APPOINTMENT = [
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "patientName",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "doctorName",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "patientAddress",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "doctorAddress",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "dateOfBooking",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "timeOfBooking",
+				"type": "string"
+			}
+		],
+		"name": "newAppointment",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "patientName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "doctorName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "patientAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "doctorAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "dateOfBooking",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "timeOfBooking",
+				"type": "string"
+			}
+		],
+		"name": "addAppointment",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAllAppointment",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "patientName",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "doctorName",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "patientAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "doctorAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "dateOfBooking",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "timeOfBooking",
+						"type": "string"
+					}
+				],
+				"internalType": "struct AppointmentContract.Appointment[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
