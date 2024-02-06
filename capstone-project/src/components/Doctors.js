@@ -76,7 +76,7 @@ const DoctorManagement = () => {
         } catch (error) {
             console.error('Error registering Doctor:', error);
         }
-    }//btao kya name rakhe thhe
+    }
 
     const handleConfirmAppointment = () => {
         // alert(selectedDoctor + " | " + timestamp + " | " + selectedTime + " | " + patientData);
