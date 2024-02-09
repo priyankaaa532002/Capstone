@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 import Web3 from 'web3';
 
 const Appointments = () => {
-    const { isAdmin } = useContext(MyContext);
+    const { isAdmin, patientData } = useContext(MyContext);
     const [appointments, setAppointments] = useState([]);
 
     function toDate(timestamp) {
@@ -59,17 +59,30 @@ const Appointments = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {appointments.map((appointment, index) => (
+                    {isAdmin && appointments.map((appointment, index) => (
                         <tr key={index}>
-                            {isAdmin && <td>{appointment[0]}</td>}
+                            {<td>{appointment[0]}</td>}
                             <td>{appointment[1]}</td>
-                            {isAdmin && <td>{appointment[2]}</td>}
+                            {<td>{appointment[2]}</td>}
                             <td>{appointment[3]}</td>
                             <td>{appointment[4].toNumber()}</td>
                             <td>{toDate(appointment[5].toNumber())}</td>
                             <td>{appointment[6]}</td>
                         </tr>
                     ))}
+
+                    {!isAdmin && appointments.map((appointment, index) => (
+                        appointment[2] === patientData.publicAddress && (
+                            <tr key={index}>
+                                <td>{appointment[1]}</td>
+                                <td>{appointment[3]}</td>
+                                <td>{appointment[4].toNumber()}</td>
+                                <td>{toDate(appointment[5].toNumber())}</td>
+                                <td>{appointment[6]}</td>
+                            </tr>
+                        )
+                    ))}
+
                 </tbody>
             </table>
         </div>
