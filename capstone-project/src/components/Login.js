@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 
 import { CONTRACT_ADDRESS_PATIENT, ABI_PATIENT } from '../Constants';
 
-import {ethers} from 'ethers';
+import { ethers } from 'ethers';
 import Web3 from 'web3';
 import { Routes } from 'react-router-dom';
 
@@ -65,16 +65,20 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div className="ms-5 me-5 mt-5" style={myStyle}>
-                {this.state.showForm1 ? <Form1 /> : <Form2 />}
-                <label className="form-label">{this.state.linkText}</label> <a href="#" onClick={this.toggleForms}>{this.state.linkText2}</a>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div style={{ margin: '15px', padding: '20px', borderTop: '5px solid #007bff', boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.2)', borderRadius: '15px', width: '600px' }}>
+                    <div className="ms-5 me-5 mt-5" style={myStyle}>
+                        {this.state.showForm1 ? <Form1 /> : <Form2 />}
+                        <label className="form-label">{this.state.linkText}</label> <a href="#" onClick={this.toggleForms}>{this.state.linkText2}</a>
+                    </div>
+                </div>
             </div>
         )
     }
 }
 
 const Form1 = () => {
-    
+
     const [account, setAccount] = useState(null);
     const navigate = useNavigate();
 
@@ -100,7 +104,7 @@ const Form1 = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { updateIsAdmin,updatePatientData } = useContext(MyContext);
+    const { updateIsAdmin, updatePatientData } = useContext(MyContext);
 
 
     const handleAdminLogin = () => {
@@ -112,16 +116,16 @@ const Form1 = () => {
         } else {
             alert('Incorrect email or password. Please try again.');
         }
-    
+
     };
     const handlePatientLogin = async (e) => {
         e.preventDefault();
         await window.ethereum.request({
-			method: 'wallet_switchEthereumChain',
-			params: [{ chainId: Web3.utils.toHex(80001) }]
-			});
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: Web3.utils.toHex(80001) }]
+        });
         const provider = new ethers.providers.Web3Provider(window.ethereum);
-	    const sig = provider.getSigner();
+        const sig = provider.getSigner();
         const contract = new ethers.Contract(CONTRACT_ADDRESS_PATIENT, ABI_PATIENT, sig);
         const reg2 = await contract.getAllPersons();
         console.log(reg2)
@@ -141,6 +145,7 @@ const Form1 = () => {
     return (
         <div style={myStyle}>
             <h3>Login</h3>
+            <p>Hi, Welcome Back 👋🏻</p><br/>
             <form>
                 <div className="mb-6">
                     <label htmlFor="exampleInputEmail1" className="form-label">
@@ -168,6 +173,10 @@ const Form1 = () => {
                     />
                 </div>
                 <br />
+                <div class="alert alert-primary" role="alert">
+                    Please ensure your MetaMask account is connected before proceeding with the login.
+                </div>
+                <br/>
                 <button type="submit" className="btn btn-primary me-3" onClick={handlePatientLogin}>
                     Login As Patient
                 </button>
@@ -184,7 +193,7 @@ const Form1 = () => {
 const Form2 = () => {
 
     const [account, setAccount] = useState(null);
-    const { updateIsAdmin,updatePatientData } = useContext(MyContext);
+    const { updateIsAdmin, updatePatientData } = useContext(MyContext);
 
 
     useEffect(() => {
@@ -220,17 +229,17 @@ const Form2 = () => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
-    
 
-    async function registerPatientData(){
+
+    async function registerPatientData() {
         await window.ethereum.request({
-			method: 'wallet_switchEthereumChain',
-			params: [{ chainId: Web3.utils.toHex(80001) }]
-			});
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: Web3.utils.toHex(80001) }]
+        });
         const provider = new ethers.providers.Web3Provider(window.ethereum);
-	    const sig = provider.getSigner();
+        const sig = provider.getSigner();
         const contract = new ethers.Contract(CONTRACT_ADDRESS_PATIENT, ABI_PATIENT, sig);
-		const reg1 = await contract.addPerson(formData.name, formData.password, formData.email, formData.address, Date.parse(formData.dob), formData.gender==="true"? true : false);
+        const reg1 = await contract.addPerson(formData.name, formData.password, formData.email, formData.address, Date.parse(formData.dob), formData.gender === "true" ? true : false);
         console.log(reg1)
 
         const reg2 = await contract.getAllPersons();
@@ -351,24 +360,24 @@ const Form2 = () => {
                         id="publicAddress"
                         name="publicAddress"
                         value={account}
-                        disabled = "true"
+                        disabled="true"
                         onChange={handleInputChange}
                     />
                 </div>
 
                 <div className="col-6 me-3">
-                        <label htmlFor="address" className="form-label">
-                            Address
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="address"
-                            name="address"
-                            value={formData.address}
-                            onChange={handleInputChange}
-                        />
-                    </div>
+                    <label htmlFor="address" className="form-label">
+                        Address
+                    </label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="address"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleInputChange}
+                    />
+                </div>
 
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">
