@@ -5,7 +5,8 @@ import Web3 from 'web3';
 
 const myStyle = {
     textAlign: "left",
-    margin: "10px"
+    margin: "20px",
+    padding : "30px"
 };
 
 const Donations = () => {
@@ -63,7 +64,7 @@ const Donations = () => {
         }
     }
 
-    async function addPatient() {
+    async function addPatient(inputVal) {
         try {
             await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
@@ -72,7 +73,7 @@ const Donations = () => {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner();
             const contract = new ethers.Contract(CONTRACT_ADDRESS_DISEASE, ABI_DISEASE, signer);
-            const persons = await contract.addTimestamp(inputValue);
+            const persons = await contract.addTimestamp(inputVal);
             console.log(persons)
 
 
@@ -123,7 +124,7 @@ const Donations = () => {
                         placeholder="Enter new disease"
                     />
                     <div class="alert" role="alert" style={{ backgroundColor: '#DCF2F1', borderColor: '#159895', color: '#159895' }}>
-                    Ensure to add a new disease only if it hasn't been added already.
+                        Ensure to add a new disease only if it hasn't been added already.
                     </div>
                     <button onClick={() => {
                         addDisease();
@@ -132,14 +133,29 @@ const Donations = () => {
                     }} className="btn btn-primary">Submit</button>
                 </div>
             )}
-
-            <button onClick={addPatient}>Add Patient</button>
-            <div>
-                {/* Mapping over the array content and creating divs */}
+            <div className="row row-cols-1 row-cols-md-3 g-4">
                 {data.map((item, index) => (
-                    <div>{item[0]} {item[1].length}  {item[1].length > 0 ? timestampToDateTime(item[1][item[1].length - 1].toNumber()) : "Patient Not Added"}</div>
+                    <div key={index} className="col">
+                        <div className="card h-100 position-relative">
+                            <div className="card-body d-flex flex-column align-items-center justify-content-center">
+                                <h5 className="card-title">{item[0]}</h5>
+                                <p className="card-text" style={{ fontSize: '50px'}}>{item[1].length}</p>
+                            </div>
+                            <button onClick={() => addPatient(item[0])} className="btn btn-primary position-absolute bottom-0 end-0 m-3 rounded-circle">+</button>
+                            <div className="card-footer text-muted">
+                                <label>Last Updated At</label><br></br>
+                                <span><i>{item[1].length > 0 ? timestampToDateTime(item[1][item[1].length - 1].toNumber()) : "Patient Not Added"}</i></span>
+                            </div>
+                        </div>
+                    </div>
                 ))}
             </div>
+
+
+
+
+
+
         </div>
     );
 }
