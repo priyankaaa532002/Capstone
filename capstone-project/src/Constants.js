@@ -376,3 +376,96 @@ export const ABI_APPOINTMENT = [
 		"type": "function"
 	}
 ]
+
+export const CONTRACT_ADDRESS_DISEASE = "0x04418df06c9c9520fe4332604ffc496877a915c6"
+export const ABI_DISEASE = [
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "diseaseName",
+				"type": "string"
+			}
+		],
+		"name": "addDisease",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "diseaseName",
+				"type": "string"
+			}
+		],
+		"name": "addTimestamp",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "diseaseName",
+				"type": "string"
+			}
+		],
+		"name": "getAllTimestampForDisease",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getData",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "timestamps",
+						"type": "uint256[]"
+					}
+				],
+				"internalType": "struct DiseaseContract.Data[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "diseaseName",
+				"type": "string"
+			}
+		],
+		"name": "getDiseasePatients",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]

@@ -26,13 +26,13 @@ export default class NavbarComp extends Component {
     return (
       <Router>
         <div>
-          <Navbar bg="dark" data-bs-theme="dark" expand="lg">
+          <Navbar className="custom-nav-color" variant="dark" expand="lg">
             <Container fluid>
               <Navbar.Brand href="/">Capstone</Navbar.Brand>
               <Navbar.Toggle aria-controls="navbarScroll" />
               <Navbar.Collapse id="navbarScroll">
                 <Nav
-                  className="me-auto my-2 my-lg-0"
+                  className="my-2 my-lg-0 ms-auto"
                   style={{ maxHeight: '300px' }}
                   navbarScroll
                 >

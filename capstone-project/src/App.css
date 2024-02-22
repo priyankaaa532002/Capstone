@@ -23,9 +23,24 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
 .App-link {
   color: #61dafb;
+}
+
+.custom-nav-color {
+  background-color: #159895;
+  color: white; /* Text color */
+}
+
+.custom-button-color {
+  background-color: #159895;
+  color: white; 
+}
+
+.custom-alert-color {
+  background-color: #159895;
+  border-color: #159895;
+  color: white; 
 }
 
 @keyframes App-logo-spin {

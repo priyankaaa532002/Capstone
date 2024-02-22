@@ -66,7 +66,7 @@ export default class Login extends Component {
     render() {
         return (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <div style={{ margin: '15px', padding: '20px', borderTop: '5px solid #007bff', boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.2)', borderRadius: '15px', width: '600px' }}>
+                <div style={{ margin: '15px', padding: '20px', borderTop: '5px solid #159895', boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.2)', borderRadius: '15px', width: '600px' }}>
                     <div className="ms-5 me-5 mt-5" style={myStyle}>
                         {this.state.showForm1 ? <Form1 /> : <Form2 />}
                         <label className="form-label">{this.state.linkText}</label> <a href="#" onClick={this.toggleForms}>{this.state.linkText2}</a>
@@ -173,14 +173,14 @@ const Form1 = () => {
                     />
                 </div>
                 <br />
-                <div class="alert alert-primary" role="alert">
+                <div class="alert" role="alert" style={{backgroundColor: '#DCF2F1', borderColor: '#159895', color: '#159895'}}>
                     Please ensure your MetaMask account is connected before proceeding with the login.
                 </div>
                 <br/>
-                <button type="submit" className="btn btn-primary me-3" onClick={handlePatientLogin}>
+                <button type="submit" className="btn btn-primary me-3" style={{ backgroundColor: '#159895', color: 'white' ,borderColor: '#159895'}} onClick={handlePatientLogin}>
                     Login As Patient
                 </button>
-                <button type="button" className="btn btn-primary" onClick={handleAdminLogin}>
+                <button type="button" className="btn btn-primary" style={{ backgroundColor: '#159895', color: 'white' ,borderColor: '#159895'}} onClick={handleAdminLogin}>
                     Login As Admin
                 </button>
                 <br />
@@ -393,7 +393,7 @@ const Form2 = () => {
                     />
                 </div>
 
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary" style={{ backgroundColor: '#159895', color: 'white' ,borderColor: '#159895'}}>
                     Register
                 </button>
             </form>
