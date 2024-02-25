@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   useEffect(() => {
@@ -11,16 +12,18 @@ const Home = () => {
   }, []);
 
   return (
-    <div style={{ backgroundColor: '#fff', minHeight: '100vh', paddingTop: '60px' }}>
+    <div style={{ backgroundColor: '#E9E3D5', minHeight: '100vh', paddingTop: '60px' }}>
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', textAlign: 'center' }}>
         <h1 style={{ fontFamily: 'Arial, sans-serif', fontSize: '40px', color: '#000', marginBottom: '20px' }}>Welcome to our Blockchain Health Platform</h1>
         <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '18px', lineHeight: '1.6', color: '#333', marginBottom: '30px', paddingTop: '30px' }}>
           Our platform leverages blockchain technology to ensure data integrity and security in the healthcare industry.
           With blockchain, we guarantee tamper-proof records, secure data sharing, and enhanced patient privacy.
         </p>
-        <button className="btn btn-primary" style={{ borderRadius: '25px', padding: '10px 30px', fontSize: '18px' }}>Get Started</button>
+        <Link to="/login">
+          <button className="btn btn-primary" style={{ borderRadius: '25px', padding: '10px 30px', fontSize: '18px', backgroundColor: '#0A7273', border: 'none', transition: 'background-color 0.3s', ':hover': { backgroundColor: '#095D5E' } }}>Get Started</button>
+        </Link>
       </div>
-      <footer style={{ background: 'linear-gradient(135deg, #007bff, #007bff, #17a2b8)', color: '#fff', position: 'fixed', bottom: '0', left: '0', width: '100%', padding: '5px 0', textAlign: 'center', boxShadow: '0px -3px 10px rgba(0, 0, 0, 0.1)' }}>
+      <footer style={{ background: '#033043', color: '#fff', position: 'fixed', bottom: '0', left: '0', width: '100%', padding: '5px 0', textAlign: 'center', boxShadow: '0px -3px 10px rgba(0, 0, 0, 0.1)' }}>
         <p>&copy; 2024 Blockchain Health Platform. All rights reserved.</p>
       </footer>
     </div>
