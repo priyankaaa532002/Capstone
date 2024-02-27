@@ -5,6 +5,7 @@ import { ethers } from 'ethers';
 import Web3 from 'web3';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import '../global-styles.css';
 
 const myStyle = {
     textAlign: "left",

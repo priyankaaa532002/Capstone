@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CONTRACT_ADDRESS_PATIENT, ABI_PATIENT } from '../Constants';
 import { ethers } from 'ethers';
 import Web3 from 'web3';
+import '../global-styles.css';
 
 const Patients = () => {
     const [persons, setPersons] = useState([]);

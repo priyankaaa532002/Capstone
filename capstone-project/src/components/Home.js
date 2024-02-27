@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '../global-styles.css';
 
 const Home = () => {
   useEffect(() => {
@@ -12,7 +13,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div style={{ backgroundColor: '#E9E3D5', minHeight: '100vh', paddingTop: '60px' }}>
+    <div style={{ minHeight: '100vh', paddingTop: '60px' }}>
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', textAlign: 'center' }}>
         <h1 style={{ fontFamily: 'Arial, sans-serif', fontSize: '40px', color: '#000', marginBottom: '20px' }}>Welcome to our Blockchain Health Platform</h1>
         <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '18px', lineHeight: '1.6', color: '#333', marginBottom: '30px', paddingTop: '30px' }}>

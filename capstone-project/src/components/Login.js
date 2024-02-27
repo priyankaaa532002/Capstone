@@ -3,8 +3,8 @@ import { useState } from 'react';
 import MyContext from '../MyContext';
 import { useContext } from 'react';
 import { useEffect } from 'react';
-
 import { CONTRACT_ADDRESS_PATIENT, ABI_PATIENT } from '../Constants';
+import '../global-styles.css';
 
 import { ethers } from 'ethers';
 import Web3 from 'web3';

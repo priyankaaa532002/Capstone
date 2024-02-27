@@ -1,4 +1,4 @@
-import './App.css';
+import './global-styles.css'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavbarComp from './components/NavbarComp';
 import MyContext from './MyContext';

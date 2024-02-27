@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CONTRACT_ADDRESS_DISEASE, ABI_DISEASE } from '../Constants';
 import { ethers } from 'ethers';
 import Web3 from 'web3';
+import '../global-styles.css';
 
 const myStyle = {
     textAlign: "left",
@@ -98,6 +99,10 @@ const Donations = () => {
 
         return formattedDateTime;
     }
+
+    function showGraph(){
+        alert("GRAPH!!")
+    }
     return (
         <div style={myStyle} >
             <button
@@ -142,6 +147,7 @@ const Donations = () => {
                                 <p className="card-text" style={{ fontSize: '50px'}}>{item[1].length}</p>
                             </div>
                             <button onClick={() => addPatient(item[0])} className="btn btn-primary position-absolute bottom-0 end-0 m-3 rounded-circle">+</button>
+                            <button onClick={() => showGraph()}>SHOW GRAPH</button>
                             <div className="card-footer text-muted">
                                 <label>Last Updated At</label><br></br>
                                 <span><i>{item[1].length > 0 ? timestampToDateTime(item[1][item[1].length - 1].toNumber()) : "Patient Not Added"}</i></span>
