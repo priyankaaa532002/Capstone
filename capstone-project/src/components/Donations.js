@@ -4,11 +4,11 @@ import { ethers } from 'ethers';
 import Web3 from 'web3';
 import '../global-styles.css';
 
-const myStyle = {
-    textAlign: "left",
-    margin: "20px",
-    padding : "30px"
-};
+// const myStyle = {
+//     textAlign: "left",
+//     margin: "20px",
+//     padding : "30px"
+// };
 
 const Donations = () => {
     const [inputValue, setInputValue] = useState('');
@@ -104,7 +104,7 @@ const Donations = () => {
         alert("GRAPH!!")
     }
     return (
-        <div style={myStyle} >
+        <div style={{ background:'#eff0f3', minHeight: '100vh', paddingTop: '1px' }} >
             <button
                 type="button"
                 className="btn btn-primary"

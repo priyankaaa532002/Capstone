@@ -40,7 +40,7 @@ const Appointments = () => {
     }, []); 
 
     return (
-        <div className='m-3'>
+        <div style={{ background:'#eff0f3', minHeight: '100vh', paddingTop: '1px' }}>
             {isAdmin ? (
                 <h2>All Appointments</h2>
             ) : (

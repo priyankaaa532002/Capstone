@@ -13,18 +13,18 @@ const Home = () => {
   }, []);
 
   return (
-    <div style={{ minHeight: '100vh', paddingTop: '60px' }}>
+    <div style={{ background:'#eff0f3', minHeight: '100vh', paddingTop: '60px' }}>
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', textAlign: 'center' }}>
-        <h1 style={{ fontFamily: 'Arial, sans-serif', fontSize: '40px', color: '#000', marginBottom: '20px' }}>Welcome to our Blockchain Health Platform</h1>
-        <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '18px', lineHeight: '1.6', color: '#333', marginBottom: '30px', paddingTop: '30px' }}>
+        <h1 className="oxygen-bold" style={{ fontSize: '40px', color: '#000', marginBottom: '20px' }}>Welcome to our Blockchain Health Platform</h1>
+        <p className="oxygen-regular" style={{ fontSize: '18px',color: '#000', lineHeight: '1.6', marginBottom: '30px', paddingTop: '30px' }}>
           Our platform leverages blockchain technology to ensure data integrity and security in the healthcare industry.
           With blockchain, we guarantee tamper-proof records, secure data sharing, and enhanced patient privacy.
         </p>
         <Link to="/login">
-          <button className="btn btn-primary" style={{ borderRadius: '25px', padding: '10px 30px', fontSize: '18px', backgroundColor: '#0A7273', border: 'none', transition: 'background-color 0.3s', ':hover': { backgroundColor: '#095D5E' } }}>Get Started</button>
+          <button className="oxygen-bold btn btn-primary" style={{ borderRadius: '1px', padding: '10px 30px', fontSize: '18px', backgroundColor: '#f9bc60',color: "#001e1d", border: 'none', transition: 'background-color 0.3s', ':hover': { backgroundColor: '#f9bc60' } }}>Get Started</button>
         </Link>
       </div>
-      <footer style={{ background: '#033043', color: '#fff', position: 'fixed', bottom: '0', left: '0', width: '100%', padding: '5px 0', textAlign: 'center', boxShadow: '0px -3px 10px rgba(0, 0, 0, 0.1)' }}>
+      <footer style={{ background: '#abd1c6', color: '#001e1d', position: 'fixed', bottom: '0', left: '0', width: '100%', padding: '0px', textAlign: 'center'}}>
         <p>&copy; 2024 Blockchain Health Platform. All rights reserved.</p>
       </footer>
     </div>
