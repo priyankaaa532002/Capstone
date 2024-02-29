@@ -41,7 +41,7 @@ const Patients = () => {
     );
 
     return (
-        <div className="ms-5 me-5" style={{ textAlign: 'left' }}>
+        <div style={{ textAlign: 'left',background:"#eff0f3",minHeight: '100vh'}}>
             <h2>Patients</h2>
             <div className="mb-3">
                 <input

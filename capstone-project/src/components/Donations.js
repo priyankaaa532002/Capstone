@@ -108,7 +108,7 @@ const Donations = () => {
             <button
                 type="button"
                 className="btn btn-primary"
-                style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: '9999' }}
+                style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: '9999', backgroundColor: "#d9376e", border:"#d9376e" }}
                 onClick={toggleForm}
             >
                 Add Disease
@@ -116,7 +116,7 @@ const Donations = () => {
             {showForm && (
                 <div
                     className="position-fixed p-4 rounded border "
-                    style={{ bottom: '80px', right: '20px', width: '300px', zIndex: '9998' }}
+                    style={{ bottom: '80px', right: '20px', width: '300px', zIndex: '9998' , backgroundColor:"#fffffe"}}
                 >
                     <button type="button" className="btn-close position-absolute top-0 end-0 m-2" aria-label="Close" onClick={toggleForm}></button>
                     <label className='m-2' style={{ textAlign: 'left' }}>Enter New Disease</label>
@@ -128,14 +128,14 @@ const Donations = () => {
                         onChange={handleInputChange}
                         placeholder="Enter new disease"
                     />
-                    <div class="alert" role="alert" style={{ backgroundColor: '#DCF2F1', borderColor: '#159895', color: '#159895' }}>
+                    <div class="alert" role="alert" style={{backgroundColor: '#ffeaf4', borderColor: '#d9376e', color: '#d9376e'}}>
                         Ensure to add a new disease only if it hasn't been added already.
                     </div>
                     <button onClick={() => {
                         addDisease();
                         setInputValue('');
                         setShowForm(false);
-                    }} className="btn btn-primary">Submit</button>
+                    }} className="btn btn-primary" style={{backgroundColor:"#d9376e", border:"#d9376e"}}>Submit</button>
                 </div>
             )}
             <div className="row row-cols-1 row-cols-md-3 g-4">
@@ -146,8 +146,8 @@ const Donations = () => {
                                 <h5 className="card-title">{item[0]}</h5>
                                 <p className="card-text" style={{ fontSize: '50px'}}>{item[1].length}</p>
                             </div>
-                            <button onClick={() => addPatient(item[0])} className="btn btn-primary position-absolute bottom-0 end-0 m-3 rounded-circle">+</button>
-                            <button onClick={() => showGraph()}>SHOW GRAPH</button>
+                            <button onClick={() => addPatient(item[0])} className="btn btn-primary position-absolute bottom-0 end-0 m-3 rounded-circle" style={{backgroundColor:"#ff8e3c" , border:"#ff8e3c"}}>+</button>
+                            {/* <button onClick={() => showGraph()}>SHOW GRAPH</button> */}
                             <div className="card-footer text-muted">
                                 <label>Last Updated At</label><br></br>
                                 <span><i>{item[1].length > 0 ? timestampToDateTime(item[1][item[1].length - 1].toNumber()) : "Patient Not Added"}</i></span>

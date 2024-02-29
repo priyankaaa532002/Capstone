@@ -161,7 +161,7 @@ const DoctorManagement = () => {
                 <div className="modal-container d-flex" style={myStyle}>
                     <div className="modal-background" onClick={() => setIsFormOpenApp(false)}></div>
                     <div className="modal-dialog">
-                        <div className="modal-content" style={{ border: '1px solid #ccc', width: '400px', margin: 'auto', padding: '20px' }}>
+                        <div className="modal-content" style={{ backgroundColor:"#fffffe", border: '1px solid #ccc', width: '400px', margin: 'auto', padding: '20px' }}>
                             <div className="modal-header">
                                 <h5 className="modal-title">Book Appointment</h5>
                                 <button type="button" className="btn-close" aria-label="Close" onClick={() => setIsFormOpenApp(false)}></button>
@@ -207,7 +207,7 @@ const DoctorManagement = () => {
                                             className="form-control"
                                         />
                                     </div>
-                                    <button type="button" className="btn btn-primary" onClick={handleConfirmAppointment}>Confirm Appointment</button>
+                                    <button type="button"  style={{backgroundColor:"#d9376e" , border: "2px solid #d9376e"}} className="btn btn-primary" onClick={handleConfirmAppointment}>Confirm Appointment</button>
                                 </form>
                             </div>
                         </div>
@@ -233,6 +233,7 @@ const DoctorManagement = () => {
                                 <th style={{ padding: '10px' }}>SPECIALITY</th>
                                 <th style={{ padding: '10px' }}>CONSULTATION CHARGE</th>
                                 <th style={{ padding: '10px' }}>ACCOUNT ADDRESS</th>
+                                <th style={{ padding: '10px' }}> </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -242,7 +243,7 @@ const DoctorManagement = () => {
                                     <td style={{ padding: '10px' }}>{doctor[1]}</td>
                                     <td style={{ padding: '10px' }}>{doctor[2].toNumber()}</td>
                                     <td style={{ padding: '10px' }}>{doctor[3]}</td>
-                                    <td><button type="button" className="btn btn-primary" onClick={handleAppointment.bind(this, doctor)}>Book Appointment</button></td>
+                                    <td><button type="button" className="btn btn-primary" style={{backgroundColor:"#ff8e3c" , border: "2px solid #ff8e3c"}} onClick={handleAppointment.bind(this, doctor)}>Book Appointment</button></td>
                                 </tr>
                             ))}
                         </tbody>
@@ -250,7 +251,7 @@ const DoctorManagement = () => {
                 </div>
             )}
             <div style={{ position: 'fixed', bottom: '20px', right: '20px' }}>
-                <button type="button" className="btn btn-primary" onClick={handleAddDoctorClick}>
+                <button type="button" className="btn btn-primary" style={{backgroundColor:"#d9376e" , border: "2px solid #d9376e"}} onClick={handleAddDoctorClick}>
                     Add New Doctor
                 </button>
             </div>
@@ -258,7 +259,7 @@ const DoctorManagement = () => {
                 <div className="modal-container d-flex" style={myStyle}>
                     <div className="modal-background" onClick={() => setIsFormOpen(false)}></div>
                     <div className="modal-dialog">
-                        <div className="modal-content" style={{ border: '1px solid #ccc', width: '400px', margin: '50px auto', padding: '20px' }}>
+                        <div className="modal-content" style={{backgroundColor:"#fffffe", border: '1px solid #ccc', width: '400px', margin: '50px auto', padding: '20px' }}>
                             <div className="modal-header">
                                 <h5 className="modal-title">Add New Doctor</h5>
                                 <button type="button" className="btn-close" aria-label="Close" onClick={() => setIsFormOpen(false)}></button>
@@ -281,7 +282,7 @@ const DoctorManagement = () => {
                                         <label htmlFor="account" className="form-label">Account Address</label>
                                         <input type="text" className="form-control" id="account" name="account" value={formData.account} onChange={handleInputChange} required />
                                     </div>
-                                    <button type="submit" className="btn btn-primary">Submit</button>
+                                    <button type="submit" style={{backgroundColor:"#d9376e" , border: "2px solid #d9376e"}} className="btn btn-primary">Submit</button>
                                 </form>
                             </div>
                         </div>

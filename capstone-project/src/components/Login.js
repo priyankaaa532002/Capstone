@@ -63,7 +63,7 @@ export default class Login extends Component {
         return (
             <div style={{ background:'#eff0f3', minHeight: '100vh', paddingTop: '1px' }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <div style={{ background:'#c5e8de', margin: '15px', padding: '20px', borderTop: '5px solid #004643', boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.2)', borderRadius: '15px', width: '600px' }}>
+                <div style={{ background:'#fffffe', margin: '15px', padding: '20px', borderTop: '5px solid #d9376e', boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.2)', borderRadius: '15px', width: '600px' }}>
                     <div className="ms-5 me-5 mt-5" style={myStyle}>
                         {this.state.showForm1 ? <Form1 /> : <Form2 />}
                         <label className="form-label">{this.state.linkText}</label> <a href="#" onClick={this.toggleForms}>{this.state.linkText2}</a>
@@ -156,7 +156,6 @@ const Form1 = () => {
                         aria-describedby="emailHelp"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        style={{backgroundColor : "#c5e8de", border : "2px solid #abd1c6"}}
                     />
                 </div>
                 <div className="mb-6">
@@ -169,18 +168,17 @@ const Form1 = () => {
                         id="exampleInputPassword1"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        style={{backgroundColor : "#c5e8de", border : "2px solid #abd1c6"}}
                     />
                 </div>
                 <br />
-                <div class="alert" role="alert" style={{backgroundColor: '#DCF2F1', borderColor: '#159895', color: '#159895'}}>
+                <div class="alert" role="alert" style={{backgroundColor: '#ffeaf4', borderColor: '#d9376e', color: '#d9376e'}}>
                     Please ensure your MetaMask account is connected before proceeding with the login.
                 </div>
                 <br/>
-                <button type="submit" className="btn btn-primary me-3" style={{ backgroundColor: '#f9bc60', color: '#000' ,borderColor: '#f9bc60'}} onClick={handlePatientLogin}>
+                <button type="submit" className="btn btn-primary me-3" style={{ backgroundColor: '#ff8e3c', color: '#fffffe' ,borderColor: '#ff8e3c'}} onClick={handlePatientLogin}>
                     Login As Patient
                 </button>
-                <button type="button" className="btn btn-primary" style={{ backgroundColor: '#e16162', color: '#000' ,borderColor: '#e16162'}} onClick={handleAdminLogin}>
+                <button type="button" className="btn btn-primary" style={{ backgroundColor: '#d9376e', color: '#fffffe' ,borderColor: '#d9376e'}} onClick={handleAdminLogin}>
                     Login As Admin
                 </button>
                 <br />
@@ -282,7 +280,6 @@ const Form2 = () => {
                             name="name"
                             value={formData.name}
                             onChange={handleInputChange}
-                            style={{backgroundColor : "#c5e8de", border : "2px solid #abd1c6"}}
                         />
                     </div>
 
@@ -297,7 +294,6 @@ const Form2 = () => {
                             name="email"
                             value={formData.email}
                             onChange={handleInputChange}
-                            style={{backgroundColor : "#c5e8de", border : "2px solid #abd1c6"}}
                         />
                     </div>
                 </div>
@@ -314,7 +310,6 @@ const Form2 = () => {
                             name="dob"
                             value={formData.dob}
                             onChange={handleInputChange}
-                            style={{backgroundColor : "#c5e8de", border : "2px solid #abd1c6"}}
                         />
                     </div>
 
@@ -330,7 +325,6 @@ const Form2 = () => {
                                     value="true"
                                     checked={formData.gender === "true"}
                                     onChange={handleInputChange}
-                                    style={{backgroundColor : "#c5e8de", border : "2px solid #abd1c6"}}
                                 />
                                 <label className="form-check-label" htmlFor="male">
                                     Male
@@ -345,7 +339,6 @@ const Form2 = () => {
                                     value="false"
                                     checked={formData.gender === "false"}
                                     onChange={handleInputChange}
-                                    style={{backgroundColor : "#c5e8de", border : "2px solid #abd1c6"}}
                                 />
                                 <label className="form-check-label" htmlFor="female">
                                     Female
@@ -367,7 +360,6 @@ const Form2 = () => {
                         value={account}
                         disabled="true"
                         onChange={handleInputChange}
-                        style={{backgroundColor : "#c5e8de", border : "2px solid #abd1c6"}}
                     />
                 </div>
 
@@ -382,7 +374,6 @@ const Form2 = () => {
                         name="address"
                         value={formData.address}
                         onChange={handleInputChange}
-                        style={{backgroundColor : "#c5e8de", border : "2px solid #abd1c6"}}
                     />
                 </div>
 
@@ -397,11 +388,10 @@ const Form2 = () => {
                         name="password"
                         value={formData.password}
                         onChange={handleInputChange}
-                        style={{backgroundColor : "#c5e8de", border : "2px solid #abd1c6"}}
                     />
                 </div>
 
-                <button type="submit" className="btn btn-primary" style={{ backgroundColor: '#f9bc60', color: '#000' ,borderColor: '#f9bc60'}}>
+                <button type="submit" className="btn btn-primary" style={{ backgroundColor: '#ff8e3c', color: '#fffffe' ,borderColor: '#ff8e3c'}}>
                     Register
                 </button>
             </form>
