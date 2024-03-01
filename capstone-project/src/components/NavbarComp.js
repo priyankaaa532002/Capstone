@@ -38,7 +38,7 @@ export default class NavbarComp extends Component {
                   {isAdmin&&<Nav.Link as={Link} to={"/patients"}>Patients</Nav.Link>}
                   <Nav.Link as={Link} to={"/doctors"}>Doctors</Nav.Link>
                   <Nav.Link as={Link} to={"/appointments"}>Appointments</Nav.Link>
-                  <Nav.Link as={Link} to={"/donations"}>Donations</Nav.Link>
+                  <Nav.Link as={Link} to={"/donations"}>Dashboard</Nav.Link>
                   {/* <Nav.Link as={Link} to={"/transaction"}>Transaction</Nav.Link> */}
                   <Nav.Link as={Link} to={"/login"}>Login</Nav.Link>
                 </Nav>
