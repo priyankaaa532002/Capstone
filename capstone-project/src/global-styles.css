@@ -106,3 +106,9 @@
   font-weight: 900;
   font-style: italic;
 }
+
+.custom-table {
+  background-color: #EFF0F3;
+  border-collapse: collapse; /* Ensure borders are collapsed */
+  border: 2px solid black; /* Set the border for the table */
+}

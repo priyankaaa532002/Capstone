@@ -104,7 +104,7 @@ const Donations = () => {
         alert("GRAPH!!")
     }
     return (
-        <div className='poppins-regular' style={{ background:'#eff0f3', minHeight: '100vh', paddingTop: '1px' }} >
+        <div className='poppins-regular' style={{ background:'#eff0f3', minHeight: '100vh', paddingTop: '1px',padding:'20px' }} >
             <button
                 type="button"
                 className="btn btn-primary"

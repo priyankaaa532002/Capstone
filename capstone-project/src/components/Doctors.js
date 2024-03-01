@@ -9,7 +9,6 @@ import '../global-styles.css';
 
 const myStyle = {
     textAlign: "left",
-    margin: "5px"
 };
 
 const DoctorManagement = () => {
@@ -156,7 +155,7 @@ const DoctorManagement = () => {
     }
 
     return (
-        <div className='poppins-regular' style={{ background:'#eff0f3', minHeight: '100vh', paddingTop: '1px' }}>
+        <div className='poppins-regular' style={{ background:'#eff0f3' , minHeight: '100vh' ,padding:'20px'}}>
             {isFormOpenApp && (
                 <div className="modal-container d-flex" style={myStyle}>
                     <div className="modal-background" onClick={() => setIsFormOpenApp(false)}></div>
@@ -215,7 +214,7 @@ const DoctorManagement = () => {
                 </div >
             )}
             {!isFormOpen && !isFormOpenApp && (
-                <div style={{ margin: '20px' }}>
+                <div>
                     <h2 style={{ marginBottom: '20px' }}>Doctors Information</h2>
                     <div className="mb-3">
                         <input
@@ -226,7 +225,7 @@ const DoctorManagement = () => {
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                     </div>
-                    <table className="table table-striped" style={{ borderCollapse: 'collapse', width: '100%' }}>
+                    <table className="table table-borderless table-hover custom-table">
                         <thead>
                             <tr>
                                 <th style={{ padding: '10px' }}>NAME</th>

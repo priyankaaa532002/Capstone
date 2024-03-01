@@ -40,13 +40,13 @@ const Appointments = () => {
     }, []); 
 
     return (
-        <div className='poppins-regular' style={{ background:'#eff0f3', minHeight: '100vh', paddingTop: '1px' }}>
+        <div className='poppins-regular' style={{ background:'#eff0f3', minHeight: '100vh', paddingTop: '1px',padding:'20px' }}>
             {isAdmin ? (
                 <h2>All Appointments</h2>
             ) : (
                 <h2>Your Appointments</h2>
             )}
-            <table className="table table-striped" style={{ borderCollapse: 'collapse', width: '100%' }}>
+            <table className="table table-borderless table-hover custom-table" style={{ borderCollapse: 'collapse', width: '100%' }}>
                 <thead>
                     <tr>
                         {isAdmin && <th>Patient Name</th>}

@@ -41,7 +41,7 @@ const Patients = () => {
     );
 
     return (
-        <div className='poppins-regular' style={{ textAlign: 'left',background:"#eff0f3",minHeight: '100vh'}}>
+        <div className='poppins-regular' style={{ textAlign: 'left',background:"#eff0f3",minHeight: '100vh', padding:'20px'}}>
             <h2>Patients</h2>
             <div className="mb-3">
                 <input
@@ -52,7 +52,7 @@ const Patients = () => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
             </div>
-            <table className="table table-striped">
+            <table className="table table-borderless table-hover custom-table">
                 <thead>
                     <tr>
                         <th>Name</th>
