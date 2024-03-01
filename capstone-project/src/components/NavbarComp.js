@@ -24,7 +24,7 @@ export default class NavbarComp extends Component {
     return (
       <Router>
         <div>
-        <Navbar className="oxygen-bold" style={{ backgroundColor: '#eff0f3' }} variant="light" expand="lg">
+        <Navbar className="poppins-medium" style={{ backgroundColor: '#eff0f3' }} variant="light" expand="lg">
             <Container fluid>
               <Navbar.Brand href="/">Capstone</Navbar.Brand>
               <Navbar.Toggle aria-controls="navbarScroll" />

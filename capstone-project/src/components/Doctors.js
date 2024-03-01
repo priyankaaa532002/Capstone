@@ -156,7 +156,7 @@ const DoctorManagement = () => {
     }
 
     return (
-        <div style={{ background:'#eff0f3', minHeight: '100vh', paddingTop: '1px' }}>
+        <div className='poppins-regular' style={{ background:'#eff0f3', minHeight: '100vh', paddingTop: '1px' }}>
             {isFormOpenApp && (
                 <div className="modal-container d-flex" style={myStyle}>
                     <div className="modal-background" onClick={() => setIsFormOpenApp(false)}></div>

@@ -61,7 +61,7 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div style={{ background:'#eff0f3', minHeight: '100vh', paddingTop: '1px' }}>
+            <div className='poppins-regular' style={{ background:'#eff0f3', minHeight: '100vh', paddingTop: '1px' }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <div style={{ background:'#fffffe', margin: '15px', padding: '20px', borderTop: '5px solid #d9376e', boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.2)', borderRadius: '15px', width: '600px' }}>
                     <div className="ms-5 me-5 mt-5" style={myStyle}>
