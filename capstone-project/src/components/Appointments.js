@@ -3,6 +3,9 @@ import MyContext from '../MyContext';
 import { CONTRACT_ADDRESS_APPOINTMENT, ABI_APPOINTMENT } from '../Constants';
 import { ethers } from 'ethers';
 import Web3 from 'web3';
+import { Button } from 'react-bootstrap';
+import { BsClipboard } from 'react-icons/bs';
+
 
 const Appointments = () => {
     const { isAdmin, patientData } = useContext(MyContext);
@@ -16,7 +19,8 @@ const Appointments = () => {
         const formattedDOB = `${day}/${month}/${year}`;
         return formattedDOB;
     }
-    
+
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,10 +41,14 @@ const Appointments = () => {
         };
 
         fetchData();
-    }, []); 
+    }, []);
+
+    function copyButton(text) {
+        navigator.clipboard.writeText(text)
+    }
 
     return (
-        <div className='poppins-regular' style={{ background:'#eff0f3', minHeight: '100vh', paddingTop: '1px',padding:'20px' }}>
+        <div className='poppins-regular' style={{ background: '#eff0f3', minHeight: '100vh', paddingTop: '1px', padding: '20px' }}>
             {isAdmin ? (
                 <h2>All Appointments</h2>
             ) : (
@@ -64,7 +72,9 @@ const Appointments = () => {
                             {<td>{appointment[0]}</td>}
                             <td>{appointment[1]}</td>
                             {<td>{appointment[2]}</td>}
-                            <td>{appointment[3]}</td>
+                            <td>{appointment[3]}<Button onClick={() => copyButton(appointment[3])} variant="link" >
+                                    <BsClipboard size={20} />
+                                </Button></td>
                             <td>{appointment[4].toNumber()}</td>
                             <td>{toDate(appointment[5].toNumber())}</td>
                             <td>{appointment[6]}</td>
@@ -75,7 +85,9 @@ const Appointments = () => {
                         appointment[2] === patientData.publicAddress && (
                             <tr key={index}>
                                 <td>{appointment[1]}</td>
-                                <td>{appointment[3]}</td>
+                                <td>{appointment[3]}<Button style={{fill: 'pink'}} onClick={() => copyButton(appointment[3])} variant="link" >
+                                    <BsClipboard size={20} />
+                                </Button></td>
                                 <td>{appointment[4].toNumber()}</td>
                                 <td>{toDate(appointment[5].toNumber())}</td>
                                 <td>{appointment[6]}</td>

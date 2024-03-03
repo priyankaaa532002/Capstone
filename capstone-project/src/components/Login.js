@@ -141,10 +141,10 @@ const Form1 = () => {
         }
     };
     return (
-        <div style={myStyle}>
-            <h3 className='oxygen-bold'>Login</h3>
-            <p className='oxygen-regular'>Hi, Welcome Back 👋🏻</p><br/>
-            <form className="oxygen-regular">
+        <div className='poppins-regular' style={myStyle}>
+            <h3>Login</h3>
+            <p>Hi, Welcome Back 👋🏻</p><br/>
+            <form>
                 <div className="mb-6">
                     <label htmlFor="exampleInputEmail1" className="form-label">
                         Email address
@@ -398,4 +398,3 @@ const Form2 = () => {
         </div>
     );
 };
-
