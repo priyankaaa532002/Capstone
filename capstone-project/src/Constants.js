@@ -236,7 +236,7 @@ export const ABI_DOCTOR = [
 	}
 ]
 
-export const CONTRACT_ADDRESS_APPOINTMENT = "0x7c050bb8f8fdde6f8701edcf7432922715df7d87"
+export const CONTRACT_ADDRESS_APPOINTMENT = "0x646e0520dca9a7be1a3ec586984bb3d60641f4cc"
 export const ABI_APPOINTMENT = [
 	{
 		"anonymous": false,
@@ -282,6 +282,18 @@ export const ABI_APPOINTMENT = [
 				"internalType": "string",
 				"name": "timeOfBooking",
 				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "bool",
+				"name": "isPaid",
+				"type": "bool"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "charge",
+				"type": "uint256"
 			}
 		],
 		"name": "newAppointment",
@@ -318,9 +330,27 @@ export const ABI_APPOINTMENT = [
 				"internalType": "string",
 				"name": "timeOfBooking",
 				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "charge",
+				"type": "uint256"
 			}
 		],
 		"name": "addAppointment",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "doPayment",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -365,6 +395,16 @@ export const ABI_APPOINTMENT = [
 						"internalType": "string",
 						"name": "timeOfBooking",
 						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "isPaid",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "charge",
+						"type": "uint256"
 					}
 				],
 				"internalType": "struct AppointmentContract.Appointment[]",
@@ -376,7 +416,6 @@ export const ABI_APPOINTMENT = [
 		"type": "function"
 	}
 ]
-
 export const CONTRACT_ADDRESS_DISEASE = "0x04418df06c9c9520fe4332604ffc496877a915c6"
 export const ABI_DISEASE = [
 	{

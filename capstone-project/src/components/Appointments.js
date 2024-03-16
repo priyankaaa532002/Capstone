@@ -21,25 +21,25 @@ const Appointments = () => {
     }
 
 
+    const fetchData = async () => {
+        try {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: Web3.utils.toHex(80001) }]
+            });
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const sig = provider.getSigner();
+            const contract = new ethers.Contract(CONTRACT_ADDRESS_APPOINTMENT, ABI_APPOINTMENT, sig);
+
+            const reg1 = await contract.getAllAppointment();
+            console.log(reg1)
+            setAppointments(reg1);
+        } catch (error) {
+            console.error('Error fetching appointments:', error);
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                await window.ethereum.request({
-                    method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: Web3.utils.toHex(80001) }]
-                });
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const sig = provider.getSigner();
-                const contract = new ethers.Contract(CONTRACT_ADDRESS_APPOINTMENT, ABI_APPOINTMENT, sig);
-
-                const reg1 = await contract.getAllAppointment();
-                setAppointments(reg1);
-            } catch (error) {
-                console.error('Error fetching appointments:', error);
-            }
-        };
-
         fetchData();
     }, []);
 
@@ -47,6 +47,46 @@ const Appointments = () => {
         navigator.clipboard.writeText(text)
     }
 
+    async function doPayment(timestamp, doctorAddress, charge) {
+        try {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            
+            const addressToValue = doctorAddress;
+            const ETHAmountValue = (charge.toNumber() * 0.0000052).toString();
+            const weiAmountValue = ethers.utils.parseEther(ETHAmountValue);
+            
+            // Manually set gas limit
+            const transactionRequest = {
+                to: addressToValue,
+                value: weiAmountValue,
+                gasLimit: ethers.utils.hexlify(3000000) // Adjust the gas limit as needed
+            };
+            
+            // Send transaction
+            const receipt = await signer.sendTransaction(transactionRequest);
+            console.log("Transaction receipt:", receipt);
+            
+            // Switch Ethereum chain
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: Web3.utils.toHex(80001) }]
+            });
+            
+            // Interact with contract
+            const contract = new ethers.Contract(CONTRACT_ADDRESS_APPOINTMENT, ABI_APPOINTMENT, signer);
+            const transactionResponse = await contract.doPayment(timestamp);
+            await transactionResponse.wait();
+            console.log("Transaction response:", transactionResponse);
+            await fetchData()
+            // Optionally, you can fetch updated appointment data here
+            
+        } catch (error) {
+            console.error('Error during payment:', error);
+        }
+    }
+    
+    
     return (
         <div className='poppins-regular' style={{ background: '#eff0f3', minHeight: '100vh', paddingTop: '1px', padding: '20px' }}>
             {isAdmin ? (
@@ -64,6 +104,8 @@ const Appointments = () => {
                         <th>Timestamp</th>
                         <th>Date of Booking</th>
                         <th>Time of Booking</th>
+                        <th colSpan={2}>Payment Status</th>
+                        <th> Consultation Fee</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,6 +120,8 @@ const Appointments = () => {
                             <td>{appointment[4].toNumber()}</td>
                             <td>{toDate(appointment[5].toNumber())}</td>
                             <td>{appointment[6]}</td>
+                            <td>{!appointment[7] && <button>Pending..</button>}</td>
+                            <td>{appointment[7] && <button>Paid</button>}</td>
                         </tr>
                     ))}
 
@@ -91,6 +135,9 @@ const Appointments = () => {
                                 <td>{appointment[4].toNumber()}</td>
                                 <td>{toDate(appointment[5].toNumber())}</td>
                                 <td>{appointment[6]}</td>
+                                <td>{!appointment[7] && <button onClick={() => doPayment(appointment[4], appointment[3], appointment[8])}>Pending..</button>}</td>
+                                <td>{appointment[7] && <button>Paid</button>}</td>
+                                <td>{appointment[8].toNumber()}</td>
                             </tr>
                         )
                     ))}

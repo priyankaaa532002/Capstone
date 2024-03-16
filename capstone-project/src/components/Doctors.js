@@ -41,22 +41,6 @@ const DoctorManagement = () => {
     };
 
     async function registerAppointmentData() {
-        const provider1 = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider1.getSigner();
-        const addressToValue = selectedDoctor[3];
-        const ETHAmountValue = (selectedDoctor[2].toNumber() * 0.0000052).toString();
-        console.log(addressToValue + " " + ETHAmountValue);
-        
-        const weiAmountValue = ethers.utils.parseEther(ETHAmountValue)
-
-        const transactionRequest = {
-        to: addressToValue.toString(),
-        value: weiAmountValue.toString()
-        }
-
-        const receipt = await signer.sendTransaction(transactionRequest);
-        console.log(receipt);
-        
         const dateObject = new Date(selectedDate);
         const timestamp = Math.floor(dateObject.getTime() / 1000);
         try {
@@ -68,7 +52,7 @@ const DoctorManagement = () => {
             const sig = provider.getSigner();
             const contract = new ethers.Contract(CONTRACT_ADDRESS_APPOINTMENT, ABI_APPOINTMENT, sig);
 
-            const reg1 = await contract.addAppointment(patientData.name, selectedDoctor[0], patientData.publicAddress, selectedDoctor[3], timestamp, selectedTime);
+            const reg1 = await contract.addAppointment(patientData.name, selectedDoctor[0], patientData.publicAddress, selectedDoctor[3], timestamp, selectedTime, selectedDoctor[2].toNumber());
             console.log(reg1)
             const reg2 = await contract.getAllAppointment();
             console.log(reg2)
