@@ -236,7 +236,7 @@ export const ABI_DOCTOR = [
 	}
 ]
 
-export const CONTRACT_ADDRESS_APPOINTMENT = "0x646e0520dca9a7be1a3ec586984bb3d60641f4cc"
+export const CONTRACT_ADDRESS_APPOINTMENT = "0x6c498ca9fcfa33fe4a7c35498bd1459d1ea1344b"
 export const ABI_APPOINTMENT = [
 	{
 		"anonymous": false,
@@ -338,6 +338,19 @@ export const ABI_APPOINTMENT = [
 			}
 		],
 		"name": "addAppointment",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "deleteAppointment",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

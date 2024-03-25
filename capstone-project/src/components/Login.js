@@ -171,7 +171,7 @@ const Form1 = () => {
                     />
                 </div>
                 <br />
-                <div class="alert" role="alert" style={{backgroundColor: '#ffeaf4', borderColor: '#d9376e', color: '#d9376e'}}>
+                <div className="alert" role="alert" style={{backgroundColor: '#ffeaf4', borderColor: '#d9376e', color: '#d9376e'}}>
                     Please ensure your MetaMask account is connected before proceeding with the login.
                 </div>
                 <br/>
@@ -192,7 +192,7 @@ const Form2 = () => {
 
     const [account, setAccount] = useState(null);
     const { updateIsAdmin, updatePatientData } = useContext(MyContext);
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         const connectToMetaMask = async () => {
@@ -262,6 +262,7 @@ const Form2 = () => {
             address: '',
             password: ''
         });
+        navigate('/');
     };
 
     return (
